@@ -1,0 +1,89 @@
+OrderBags = {
+    orderNumber: { type: Schema.Types.ObjectId, required: true, ref: "Order" },
+    shopId: { type: Schema.Types.ObjectId, required: true, ref: "Shop" },
+    pickerId: { type: Schema.Types.ObjectId, required: false, ref: "User", default: null },
+    deliveryId: { type: Schema.Types.ObjectId, required: false, ref: "User", default: null },
+    readyforDelivery: { type: Boolean, required: false, default: false },
+    delivery: { type: Boolean, required: false, default: false },
+    received: { type: String, required: false, default: "" },
+    comment: { type: String, required: false, default: "" },
+    bags: [{
+        bagNumber: { type: String, required: true },
+        products: [{
+            id: { type: String, required: true },
+            barcode: { type: String, required: true },
+            product: { type: String, required: true },
+            units: { type: Number, required: true },
+            unitsPicked: { type: Number, required: true },
+            unitsSubstitutes: { type: Number, required: true },
+            unitsBroken: { type: Number, required: true },
+            unitsReplaced: { type: Number, required: true },
+            description: { type: String, required: true },
+            image: { type: String, required: true },
+            location: { type: Number, required: true },
+        }]
+    }]
+};
+
+Order = {
+    uid: { type: Schema.Types.ObjectId, required: true, ref: "Company" },
+    orderNumber: { type: String, required: true },
+    shopId: { type: Schema.Types.ObjectId, required: false, ref: "Shop", default: null },
+    pickerId: { type: Schema.Types.ObjectId, required: false, ref: "User", default: null },
+    products: [{
+        id: { type: String, required: true },
+        barcode: { type: String, required: true },
+        product: { type: String, required: true },
+        units: { type: Number, required: true },
+        unitsPicked: { type: Number, required: true },
+        unitsSubstitutes: { type: Number, required: true },
+        unitsBroken: { type: Number, required: true },
+        unitsReplaced: { type: Number, required: true },
+        description: { type: String, required: true },
+        image: { type: String, required: true },
+        location: { type: Number, required: true },
+    }],
+    client: {
+        rut: { type: String, required: true },
+        name: { type: String, required: true },
+        address: { type: String, required: true },
+        third: { type: String, required: false, default: "" },
+        comment: { type: String, required: false, default: "" },
+        comuna: { type: String, required: true },
+        ciudad: { type: String, required: true },
+        long: { type: String, required: true },
+        lat: { type: String, required: true }
+    },
+    date: { type: Date, required: true },
+    startPickingDate: { type: Date, required: true },
+    endPickingDate: { type: Date, required: true },
+    starDeliveryDate: { type: Date, required: true },
+    endDeliveryDate: { type: Date, required: true },
+    realdatedelivery: { type: Date, required: true },
+    pickerWorkShift: { type: String, required: true }
+}
+
+
+Shop = {
+    number: { type: String, required: false },
+    address: { type: String, required: true },
+    phone: { type: String, required: false },
+    company: { type: Schema.Types.ObjectId, required: true, ref: "Company" }
+}
+
+User = {
+    password: { type: String, required: true },
+    rut: { type: String, required: true },
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    phone: { type: String, required: true },
+    profile: { type: String, required: true },
+    company: { type: Schema.Types.ObjectId, required: false, ref: "Companies" }
+}
+
+Company = {
+    rut: { type: String, required: true },
+    name: { type: String, required: true },
+    email: { type: String, required: true },
+    phone: { type: String, required: true }
+}

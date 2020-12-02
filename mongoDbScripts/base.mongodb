@@ -1,0 +1,126 @@
+// MongoDB Playground
+// To disable this template go to Settings | MongoDB | Use Default Template For Playground.
+// Make sure you are connected to enable completions and to be able to run a playground.
+// Use Ctrl+Space inside a snippet or a string literal to trigger completions.
+
+// Select the database to use.
+use('picking-dev');
+
+// The drop() command destroys all data from a collection.
+// Make sure you run it against proper database and collection.
+// db.orders.drop();
+// db.orderbags.drop();
+
+// db.orders.find({shopId:mongoose.Types.ObjectId('5f20b835b3f7fb7f8f175d35')})
+// db.orders.find({"shopId" : ObjectId("5f20b835b3f7fb7f8f175d35")})
+// db.orders.find({
+//       $and: [
+//           {"shopId": ObjectId("5f20b835b3f7fb7f8f175d35") },
+//           {"client.name": "Rosa Pulido"}
+//       ]
+//   })
+
+
+// db.orders.find({
+//     $or: [
+//         {state: ObjectId("5f1c70b28126df435e1a2f12") },
+//         {state: ObjectId("5f1c70b28126df435e1a2f13") }
+//     ]
+// })
+
+// db.orders.find({})
+
+// db.states.find({
+//     $or:[
+//         { key: '8' },
+//         { key: '7' }
+//     ]
+// })
+
+
+db.orders.find({}).populate('pickerId')
+
+// db.orders.find({ 
+//     '$or': [ 
+//         { state: ObjectId("5f1c70b28126df435e1a2f0d") }, 
+//         { date: { '$gte': new Date("Fri, 31 Jul 2020 03:32:02 GMT"), '$lt': new Date("Fri, 31 Jul 2020 03:32:02 GMT") } }, 
+//         { endDeliveryDate: { '$gte': new Date("Fri, 31 Jul 2020 03:32:02 GMT"), '$lt': new Date("Fri, 31 Jul 2020 03:32:02 GMT") } }, 
+//         { 'pickerId.name': 'carlos' }, 
+//         { orderNumber: '1321321' }, 
+//         { shopId: ObjectId("5f20c7e3b1ee8084388495b4") }, 
+//         { service: ObjectId("5f1c9682a813965038086227") } 
+//     ], 
+//     '$and': [ 
+//         { uid: ObjectId("5f2396276cb00d314872b502") } 
+//         ]
+//     }, 
+//     { limit: 0, projection: {} 
+// })
+
+
+// db.users.find({ 
+//     '$or': [ 
+//         { profile: ObjectId("5f1f904f06bc07340f2e2cf7") }, 
+//         { company: ObjectId("5f243b1b4687cc4b5e9b008a") } 
+//     ], 
+//     '$and': 
+//     [ 
+//         { condition: { '$ne': ObjectId("5f2051a6db79655ad3c7a217") } } 
+//     ]
+//     }, { limit: 0, projection: {} })
+
+
+// db.orders.find({ 
+//     '$and': [ 
+//             { 
+//                 '$or': [ 
+//                     { shopId: ObjectId("5f247b4f9cc76b5a9ed6b9b4") }, 
+//                     { 'client.name': 'weewe' }, 
+//                     { 'client.address': 'dasdasd' } 
+//             ] 
+//         }, 
+//             { 
+//                 state: ObjectId("5f1c70b28126df435e1a2f14") 
+//             } 
+//         ]
+//         })
+
+
+        db.orders.find({ '$and': [ { date: { '$gte': new Date("Fri, 31 Jul 2020 06:00:00 GMT"), '$lt': new Date("Fri, 31 Jul 2020 23:00:00 GMT") } } ]})
+
+// db.orders.find({ 
+//     $and: 
+//         [ 
+//             { "shopId": ObjectId("5f21d9439b219db3be457810") }, 
+//             { "uid": ObjectId("5f20a778c55b9178ab6aa9b3") } 
+//         ]
+//     }
+
+// db.orders.find({'shopId': ObjectId("5f21d9439b219db3be457810")})
+
+// db.users.drop();
+// db.shops.drop();
+
+// Insert a few documents into the sales collection.
+// db.sales.insertMany([
+//   { '_id' : 1, 'item' : 'abc', 'price' : 10, 'quantity' : 2, 'date' : new Date('2014-03-01T08:00:00Z') },
+//   { '_id' : 2, 'item' : 'jkl', 'price' : 20, 'quantity' : 1, 'date' : new Date('2014-03-01T09:00:00Z') },
+//   { '_id' : 3, 'item' : 'xyz', 'price' : 5, 'quantity' : 10, 'date' : new Date('2014-03-15T09:00:00Z') },
+//   { '_id' : 4, 'item' : 'xyz', 'price' : 5, 'quantity' :  20, 'date' : new Date('2014-04-04T11:21:39.736Z') },
+//   { '_id' : 5, 'item' : 'abc', 'price' : 10, 'quantity' : 10, 'date' : new Date('2014-04-04T21:23:13.331Z') },
+//   { '_id' : 6, 'item' : 'def', 'price' : 7.5, 'quantity': 5, 'date' : new Date('2015-06-04T05:08:13Z') },
+//   { '_id' : 7, 'item' : 'def', 'price' : 7.5, 'quantity': 10, 'date' : new Date('2015-09-10T08:43:00Z') },
+//   { '_id' : 8, 'item' : 'abc', 'price' : 10, 'quantity' : 5, 'date' : new Date('2016-02-06T20:20:13Z') },
+// ]);
+
+// Run a find command to view items sold on April 4th, 2014.
+// db.sales.find({ date: { $gte: new Date('2014-04-04'), $lt: new Date('2014-04-05') } });
+
+// db.orderbags.find({shopId:ObjectID('5f03a9a5a2dd5c3be412aa38')}).;
+
+// Run an aggregation to view total sales for each product in 2014.
+// const aggregation = [
+//   { $match: { date: { $gte: new Date('2014-01-01'), $lt: new Date('2015-01-01') } } },
+//   { $group: { _id : '$item', totalSaleAmount: { $sum: { $multiply: [ '$price', '$quantity' ] } } } }
+// ];
+// db.sales.aggregate(aggregation);
